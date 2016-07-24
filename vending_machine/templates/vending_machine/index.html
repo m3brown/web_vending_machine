@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 id="msg">{{ msg }}</h1>
+
+  {% csrf_token %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-3 input-group input-group-lg">
+        <button id="insert-btn" type="submit" name="action" class="btn btn-lg btn-default" value="insert">Insert Coin</button>
+        <button id="buy-btn" type="submit" name="action" class="btn btn-lg btn-default" value="buy">Buy Product</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4">
+        {{ message|default_if_none:"" }}
+      </div>
+    </div>
+  <div>
+{% endblock %}

@@ -66,6 +66,3 @@ class TestVendingMachine:
         self.vending_machine.buy_product()
 
         # Assert
-
-    def test_fails(self):
-        assert False

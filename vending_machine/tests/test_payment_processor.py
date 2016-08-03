@@ -7,7 +7,6 @@ from django.test import TestCase
 class TestPaymentProcessor(TestCase):
     def setUp(self):
         self.processor = PaymentProcessor()
-        Payment.objects.update_or_create(pk=1, defaults={'amount':0})
 
     def test_is_payment_made_with_no_payment(self):
         # Arrange

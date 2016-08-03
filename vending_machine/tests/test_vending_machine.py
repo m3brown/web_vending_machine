@@ -67,3 +67,5 @@ class TestVendingMachine:
 
         # Assert
 
+    def test_fails(self):
+        assert False

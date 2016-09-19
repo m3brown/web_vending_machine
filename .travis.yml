@@ -10,6 +10,6 @@ install:
   - pip install coveralls
 # command to run tests
 script:
-  coverage run --source=vending_machine python manage.py test
+  coverage run --source=vending_machine manage.py test
 after_success:
   coveralls

@@ -1,7 +1,5 @@
-import unittest
 from nose.tools import *
 from vending_machine.payments import PaymentProcessor
-from vending_machine.models import Payment
 from django.test import TestCase
 
 class TestPaymentProcessor(TestCase):

@@ -1,7 +1,6 @@
 import unittest
 from nose.tools import *
 from vending_machine.vending_machine import VendingMachine
-from vending_machine.models import Payment
 
 class TestVendingMachine:
     def setUp(self):

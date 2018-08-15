@@ -12,7 +12,7 @@ class IndexTests(TestCase):
 
         # Assert
         assert_equals(response.status_code, 200)
-        assert_equals(response.context['msg'], 'Please insert money')
+        assert_equals(response.context['msg'], '')
 
 class InsertCoinTests(TestCase):
 
@@ -38,7 +38,7 @@ class BuyProductTests(TestCase):
 
         # Assert
         assert_equals(response.status_code, 200)
-        assert_equals(response.json()['msg'], 'Cannot buy product without payment')
+        assert_equals(response.json()['msg'], 'Please insert money')
 
     def test_buy_product_with_payment_expects_success_msg(self):
         # Arrange

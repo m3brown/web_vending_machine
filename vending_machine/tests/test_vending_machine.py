@@ -36,7 +36,6 @@ class TestVendingMachine():
         # Assert
         assert result > 0
 
-    @skip("buy_product now returns an exception")
     def test_buy_product_with_no_payment_expects_nothing(self):
         # Arrange
 
@@ -56,6 +55,7 @@ class TestVendingMachine():
         # Assert
         assert result is not None
 
+    @skip("buy_product now returns None")
     def test_buy_product_with_no_payment_expects_exception(self):
         # Arrange
 
@@ -71,7 +71,6 @@ class TestVendingMachine():
         # Act
         self.vending_machine.insert_coin(1)
         self.vending_machine.buy_product()
-        with pytest.raises(RuntimeError):
-            self.vending_machine.buy_product()
+        self.vending_machine.buy_product()
 
         # Assert

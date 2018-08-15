@@ -3,7 +3,8 @@ from payments import PaymentProcessor
 class VendingMachine:
     def __init__(self):
         self.payment_processor = PaymentProcessor()
-        self.message = 'Please insert money'
+        self.message = ''
+
 
 
     def release_change(self):
@@ -23,7 +24,9 @@ class VendingMachine:
             self.payment_processor.process_payment()
             return 'product'
         else:
-            raise RuntimeError("Cannot buy product without payment")
+            self.message = 'Please insert money'
+            return None
+            #raise RuntimeError("Cannot buy product without payment")
 
     def get_message(self):
         return self.message

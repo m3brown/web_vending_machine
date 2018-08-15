@@ -14,8 +14,5 @@ def insert_coin(request):
     return JsonResponse({'msg': vm.message})
 
 def buy_product(request):
-    try:
-        vm.buy_product()
-        return JsonResponse({'msg': vm.message, 'product': "product"})
-    except RuntimeError as e:
-        return JsonResponse({'msg': e.message, 'product': None})
+    product = vm.buy_product()
+    return JsonResponse({'msg': vm.message, 'product': product})

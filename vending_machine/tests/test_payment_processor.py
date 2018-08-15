@@ -1,10 +1,15 @@
-from nose.tools import *
 from vending_machine.payments import PaymentProcessor
 from django.test import TestCase
+from vending_machine.sql_command import SQLCommand
 
-class TestPaymentProcessor(TestCase):
+sql = SQLCommand()
+
+class TestPaymentProcessor():
     def setUp(self):
         self.processor = PaymentProcessor()
+
+    def tearDown(self):
+        sql.execute('DELETE from vending_machine_payment')
 
     def test_is_payment_made_with_no_payment(self):
         # Arrange
@@ -13,7 +18,7 @@ class TestPaymentProcessor(TestCase):
         result = self.processor.is_payment_made()
 
         # Assert
-        assert_false(result)
+        assert result == False
 
     def test_is_payment_made_with_a_payment(self):
         # Arrange
@@ -23,7 +28,7 @@ class TestPaymentProcessor(TestCase):
         result = self.processor.is_payment_made()
 
         # Assert
-        assert_true(result)
+        assert result == True
 
     def test_make_payment_expects_payment_nonzero(self):
         # Arrange
@@ -32,14 +37,14 @@ class TestPaymentProcessor(TestCase):
         self.processor.make_payment(1)
 
         # Assert
-        assert_not_equal(0, self.processor.payment_amount())
+        assert self.processor.get_payment_amount() != 0
 
-    def test_reset_sets_payment_amount_to_zero(self):
+    def test_process_payment_sets_payment_amount_to_zero(self):
         # Arrange
         self.processor.make_payment(1)
 
         # Act
-        self.processor.reset()
+        result = self.processor.process_payment()
 
         # Assert
-        assert_equal(0, self.processor.payment_amount())
+        assert self.processor.get_payment_amount() == 0

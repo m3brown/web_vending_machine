@@ -5,6 +5,7 @@ class VendingMachine:
         self.payment_processor = PaymentProcessor()
         self.message = 'Please insert money'
 
+
     def release_change(self):
         if self.payment_processor.is_payment_made():
             return 1
@@ -13,13 +14,13 @@ class VendingMachine:
 
     def insert_coin(self, count):
         self.payment_processor.make_payment(count)
-        amount = float(self.payment_processor.payment_amount()) / 100.0
+        amount = float(self.payment_processor.get_payment_amount()) / 100.0
         self.message = "You have inserted $%s" % amount
 
     def buy_product(self):
         if self.payment_processor.is_payment_made():
             self.message = 'Enjoy!'
-            self.payment_processor.reset()
+            self.payment_processor.process_payment()
             return 'product'
         else:
             raise RuntimeError("Cannot buy product without payment")
@@ -28,4 +29,7 @@ class VendingMachine:
         return self.message
 
     def reset(self):
-        self.payment_processor.reset()
+        '''
+        Clear out any money that was in the machine
+        '''
+        self.payment_processor = PaymentProcessor()

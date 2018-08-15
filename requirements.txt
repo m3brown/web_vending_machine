@@ -17,6 +17,7 @@ pbr==1.9.1
 pep8==1.7.0
 pyfscache==0.9.12
 pylint==1.5.5
+pytest==3.7.1
 redis==2.10.5
 redis-simple-cache==0.0.8
 selenium==2.53.6

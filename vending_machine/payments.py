@@ -1,22 +1,43 @@
 from models import Payment
+from sql_command import SQLCommand
 
-class PaymentProcessor:
+sql_command = SQLCommand()
+
+class PaymentProcessor():
+
     def __init__(self):
-        Payment.objects.get_or_create(pk=1, defaults={'amount': 0})
+        '''
+        Set up a Payment row with pk=1 and value=0
+        '''
+        sql_command.execute(
+            'DELETE FROM vending_machine_payment'
+        )
+        sql_command.execute(
+            'INSERT INTO vending_machine_payment VALUES (1, 0)'
+        )
+
+
+    def get_payment_amount(self):
+        return sql_command.execute_with_result("SELECT amount FROM vending_machine_payment WHERE id=1")
+
 
     def is_payment_made(self):
-        payment = Payment.objects.get(pk=1)
-        return payment.amount > 0
+        amount = self.get_payment_amount()
+        return amount > 0
+
 
     def make_payment(self, count):
-        payment = Payment.objects.get(pk=1)
-        payment.amount = payment.amount + count*25
-        payment.save()
+        amount = self.get_payment_amount() + count*25
+        sql_command.execute(
+            "UPDATE vending_machine_payment \
+             SET amount=" + str(amount) + " WHERE id=1"
+        )
 
-    def reset(self):
-        payment = Payment.objects.get(pk=1)
-        payment.amount = 0
-        payment.save()
 
-    def payment_amount(self):
-        return Payment.objects.get(pk=1).amount
+    def process_payment(self):
+        amount = self.get_payment_amount()
+        if amount > 0:
+            sql_command.execute(
+                "UPDATE vending_machine_payment SET amount=0 WHERE id=1"
+            )
+        return amount
